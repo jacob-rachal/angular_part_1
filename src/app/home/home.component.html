@@ -1,0 +1,25 @@
+<!-- <p>
+  home works!
+</p> -->
+<div class="container">
+  <h1 class="text-center">Hello, my name is {{ name }}. And today is {{ renderThisDay() }}. </h1>
+  <input [(ngModel)]="name" type="text">   <!-- the latter part of double-model binding -->
+  <ul>
+    <!-- <li *ngFor="let language of languages">{{language}}</li> -->
+    <!-- * means template=, and is doing a for-loop over that array. -->
+    <!-- <li *ngFor="let language of languages">The language of {{language.name}} is spoken mainly in {{language.country}}.</li> -->
+    <!-- let the singular be of the plural format of the array specified. -->
+    <!--     <li *ngFor="let language of languages">The language of {{language.names}} is spoken mainly in {{language.country}}.</li>
+ -->
+    <!-- <li *ngFor="let language of languages">The language of {{language.names.join(', ')}} is spoken mainly in {{language.country}}.</li> -->
+
+    <!-- <li *ngFor="let language of languages">The language of {{renderSpokenLanguages(language.names)}} is spoken mainly in {{language.country}}.</li> -->
+
+  <!-- preventing a language from displaying -->
+    <ng-container *ngFor="let language of languages">
+      <!-- <li *ngIf="true">The language of {{renderSpokenLanguages(language.names)}} is spoken mainly in {{language.country}}.</li> -->
+      <li *ngIf="ignoreLanguage(language)">The language of {{renderSpokenLanguages(language.names)}} is spoken mainly in {{language.country}}.</li>
+      <!-- //So USA and Germany are not showing up ON PURPOSE -->
+    </ng-container>
+  </ul>
+</div>

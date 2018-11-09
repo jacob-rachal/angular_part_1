@@ -6,21 +6,21 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title: String = 'Angular Intro';
-  name: String = 'Jacob';
-  currentDay: any = new Date().getDay();
-
-  days: Object = {
-    0: 'Sunday',
-    1: 'Monday',
-    2: 'Tuesday',
-    3: 'Wednesday',
-    4: 'Thursday',
-    5: 'Friday',
-    6: 'Saturday'
-  };
-
-  renderThisDay() {
-    return this.days[this.currentDay];
-  }
+  // title: String = 'Angular Intro';
+  // name: String = 'Jacob';
+  // currentDay: any = new Date().getDay();
+  //
+  // days: Object = {
+  //   0: 'Sunday',
+  //   1: 'Monday',
+  //   2: 'Tuesday',
+  //   3: 'Wednesday',
+  //   4: 'Thursday',
+  //   5: 'Friday',
+  //   6: 'Saturday'
+  // };
+  //
+  // renderThisDay() {
+  //   return this.days[this.currentDay];
+  //}
 }

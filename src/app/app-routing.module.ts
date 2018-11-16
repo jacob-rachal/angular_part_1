@@ -5,10 +5,11 @@ import { RouterModule, Routes } from '@angular/router';
 // The lower imports are all created by us.
 //import { HomeComponent } from '.home/home.component';
 import { HomeComponent } from './home/home.component';
-
+import { TodoComponent } from './todo/todo.component';
 
 const routes: Routes= [
-  { path: '', component: HomeComponent }
+  { path: '', component: HomeComponent },
+  { path: 'todo', component: TodoComponent }
   //whenever we want to allow the user to go to a new page, we need to include the route here.
 
 ];

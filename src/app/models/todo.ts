@@ -3,6 +3,6 @@ export class Todo {
   id: number;
   name: string;
   tags: string[];
-  isCompleted: Boolean = false;//this is a default value.
-  isDeleted: boolean; //this isn't a default
+  isCompleted = false;//this is a default value.
+  isDeleted = false; //this isn't a default
 }

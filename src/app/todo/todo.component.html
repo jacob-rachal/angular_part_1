@@ -4,8 +4,15 @@
 <!-- day 3 -->
 <div class="container">
   <div class="row">
-    <h1 class="text-center">TODOS</h1>
+    <h1 class="text-center">LEGOS</h1>
+    <!-- TODOS APP  -->
   </div>
+<div class="row">
+  <button class="btn btn-info col-lg-offset-11" type="button" data-toggle="modal" data-target="#myModal">
+    RECOVERY / Trash
+  </button>
+</div>
+
   <table class="table table-striped">
     <thead>
       <tr>
@@ -23,7 +30,8 @@
           <!-- essentially a template -->
           <td>{{ todo.id }}</td>
           <td [ngClass]="{ 'completed' : todo.isCompleted }">{{ todo.name }}</td>
-          <td>{{ todo.tags }}</td>
+          <td><span class="badge badge-margin" *ngFor="let tag of todo.tags">{{ tag }}</span></td>
+          <!-- {{ renderTags(todo.tags) }} -->
           <td><button class="btn btn-success" (click)="toggleCompleteTodo(todo)">{{ renderIsCompletedText(todo) }}</button></td>
           <td><button class="btn btn-danger" (click)="toggleDeleteTodo(todo)">Delete</button></td>
         </ng-container>
@@ -32,12 +40,49 @@
     </tbody>
   </table>
 
-<form (ngSubmit)="addTodo()">
-    <div class="form-group">
-      <label for="name">Name:</label>
-      <input type="text" class="form-control" id="name" name="name" placeholder="Name" [(ngModel)]="newTodo.name">
-    </div>
-    <button class="btn btn-success">Add</button>
-</form>
+  <form (ngSubmit)="addTodo()">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Name" [(ngModel)]="newTodo.name">
+      </div>
+      <button class="btn btn-success">Add</button>
+  </form>
+
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+ <div class="modal-dialog" role="document">
+   <div class="modal-content">
+     <div class="modal-header">
+       <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+       </button>
+       <h4 class="modal-title" id="myModalLabel">Trash</h4>
+     </div>
+     <div class="modal-body">
+       <ul class="list-group">
+         <table class="table table-striped">
+           <thead>
+             <td>ID</td>
+             <td>Name</td>
+             <td>Restore</td>
+             <td>Remove</td>
+           </thead>
+           <tbody>
+             <!-- //left alone for now -->
+             <tr *ngFor="let removedTodo of todos">
+               <ng-container *ngIf="removedTodo.isDeleted">
+                 <td>{{ removedTodo.id }}</td>
+                 <td>{{ removedTodo.name }}</td>
+                 <td><button class="btn btn-success" (click)="toggleDeleteTodo(removedTodo)">Restore</button></td>
+                 <td><button class="btn btn-danger" (click)="deleteTodo(removedTodo)">Delete FOREVER!</button></td>
+               </ng-container>
+             </tr>
+           </tbody>
+         </table>
+       </ul>
+     </div>
+   </div>
+ </div>
 
 </div>

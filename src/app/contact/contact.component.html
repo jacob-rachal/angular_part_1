@@ -7,6 +7,9 @@
   <div class="row">
     <h1 class="text-center">Contact Book</h1>
   </div>
+  <div class="row">
+    <button class="btn btn-info col-lg-offset-11" data-toggle="modal" data-target="#trashModal">Trash</button>
+  </div>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -22,14 +25,14 @@
     <tbody>
       <tr *ngFor="let contact of contacts | alphabetical">
         <!-- use pipes with the pipe character, followeed by the pipe name. -->
-        <ng-container>
+        <ng-container *ngIf="!contact.isDeleted">
           <td>{{ contact.id }}</td>
           <td>{{ contact.name }}</td>
           <td>{{ contact.email }}</td>
           <td>{{ contact.phone }}</td>
           <td><span class="badge tag" *ngFor="let tag of contact.tags" (click)="getContacts(tag)" >{{ tag }}</span></td>
           <td><button class="bt btn-primary" type="button" data-toggle="modal" data-target="#myModal" (click)="getEditedContact(contact)">Edit</button></td>
-          <td>Delete</td>
+          <td><button class="btn btn-danger" type="button" (click)="toggleDeleteContact(contact)">Delete</button></td>
         </ng-container>
 
       </tr>
@@ -63,6 +66,43 @@
            </div>
            <button class="btn btn-success" data-dismiss="modal">Save</button>
          </form>
+
+       </ul>
+     </div>
+   </div>
+ </div>
+</div>
+
+<!-- day 6 modal; for...something -->
+<div class="modal fade" id="trashModal" tabindex="-1" role="dialog" aria-labelledby="trashModalLabel">
+ <div class="modal-dialog" role="document">
+   <div class="modal-content">
+     <div class="modal-header">
+       <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+       </button>
+       <h4 class="modal-title" id="trashModalLabel">Trash</h4>
+     </div>
+     <div class="modal-body">
+       <ul class="list-group">
+         <table class="table table-striped">
+           <thead>
+             <tr>
+               <td>Name</td>
+               <td>Delete</td>
+             </tr>
+           </thead>
+           <tbody>
+             <tr *ngFor="let deletedContact of contacts">
+               <ng-container *ngIf="deletedContact.isDeleted">
+                 <td>{{ deletedContact.name }}</td>
+                 <td>
+                   <button class="btn btn-warn" (click)="deleteContact(deletedContact)">DELETE?</button>
+                 </td>
+               </ng-container>
+             </tr>
+           </tbody>
+         </table>
 
        </ul>
      </div>

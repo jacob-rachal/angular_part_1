@@ -34,6 +34,18 @@ export class ContactComponent implements OnInit {
     this.editedContact = contact;
   }
 
+  //day 6, trash and filtering
+  toggleDeleteContact(contact) {
+    contact.isDeleted = !contact.isDeleted;
+  }
+
+  deleteContact(contact) {
+    const remove: number = this.contacts.indexOf(contact);
+    if ( remove !== -1 ) {
+      this.contacts.splice(remove, 1);
+    }
+  }
+
   ngOnInit() {
     this.getContacts('all');
   }

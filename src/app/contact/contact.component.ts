@@ -13,6 +13,11 @@ export class ContactComponent implements OnInit {
 
   contacts: ContactInterface[];
   editedContact: ContactInterface = new Contact();
+  filter = '';
+  // having filter set to firstName orders the contact display by the contacts first names.
+  // Whereas having it set as lastName does it via lthe last names.
+  // But now we want to do this thru the DOM.
+  shouldReverse = false;
 
   constructor() { }
 
@@ -45,6 +50,14 @@ export class ContactComponent implements OnInit {
       this.contacts.splice(remove, 1);
     }
   }
+
+  get filterBy() { return this.filter; }
+
+  changeFilterBy(filter: string) { this.filter = filter; }
+
+  get isReversed() {return this.shouldReverse;}
+
+  toggleReverse() {this.shouldReverse = !this.shouldReverse;}
 
   ngOnInit() {
     this.getContacts('all');

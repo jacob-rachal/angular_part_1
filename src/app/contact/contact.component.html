@@ -13,9 +13,31 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <td>ID</td>
-        <td>Name</td>
-        <td>Email</td>
+        <td>
+          <span (click)="changeFilterBy('id')">ID</span>
+          <span (click)="toggleReverse()" class="dropdown">
+            <i class="caret"></i>
+          </span>
+          <!-- class="caret" -->
+        </td>
+        <td>
+          <span (click)="changeFilterBy('firstName')">First Name</span>
+          <span (click)="toggleReverse()" class="dropdown">
+            <i class="caret"></i>
+          </span>
+        </td>
+        <td>
+          <span (click)="changeFilterBy('lastName')">Last Name</span>
+          <span (click)="toggleReverse()" class="dropdown">
+            <i class="caret"></i>
+          </span>
+        </td>
+        <td>
+          <span (click)="changeFilterBy('email')">Email</span>
+          <span (click)="toggleReverse()" class="dropdown">
+            <i class="caret"></i>
+          </span>
+        </td>
         <td>Phone</td>
         <td>Tags</td>
         <td>Edit</td>
@@ -23,11 +45,15 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let contact of contacts | alphabetical">
+      <tr *ngFor="let contact of (contacts | reverse: isReversed | alphabetical: filterBy) ">
+        <!--  | alphabetically alphabetical: filterBy-->
         <!-- use pipes with the pipe character, followeed by the pipe name. -->
+        <!-- the : is for applying arguments to the pipe. -->
+        <!-- Take note:: for using multiple pipes; wrap the array thru the pipes in a (). EX (array | pipe1 | pipe2 |...) -->
         <ng-container *ngIf="!contact.isDeleted">
           <td>{{ contact.id }}</td>
-          <td>{{ contact.name }}</td>
+          <td>{{ contact.firstName }}</td>
+          <td>{{ contact.lastName }}</td>
           <td>{{ contact.email }}</td>
           <td>{{ contact.phone }}</td>
           <td><span class="badge tag" *ngFor="let tag of contact.tags" (click)="getContacts(tag)" >{{ tag }}</span></td>
@@ -47,14 +73,18 @@
        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
          <span aria-hidden="true">&times;</span>
        </button>
-       <h4 class="modal-title" id="myModalLabel">Edit {{ editedContact.name }}</h4>
+       <h4 class="modal-title" id="myModalLabel">Edit {{ editedContact.firstName }} {{ editedContact.lastName }}</h4>
      </div>
      <div class="modal-body">
        <ul class="list-group">
          <form>
            <div class="form-group">
-             <label for="name">Name:</label>
-             <input type="text" class="form-control" id="name" name="name" [(ngModel)]="editedContact.name">
+             <label for="firstName"> First Name:</label>
+             <input type="text" class="form-control" id="firstName" name="firstName" [(ngModel)]="editedContact.firstName">
+           </div>
+           <div class="form-group">
+             <label for="lastName"> Last Name:</label>
+             <input type="text" class="form-control" id="LastName" name="LastName" [(ngModel)]="editedContact.lastName">
            </div>
            <div class="form-group">
              <label for="name">Email:</label>
@@ -95,7 +125,7 @@
            <tbody>
              <tr *ngFor="let deletedContact of contacts">
                <ng-container *ngIf="deletedContact.isDeleted">
-                 <td>{{ deletedContact.name }}</td>
+                 <td>{{ deletedContact.firstName }} {{ deletedContact.lastName }}</td>
                  <td>
                    <button class="btn btn-warn" (click)="deleteContact(deletedContact)">DELETE?</button>
                  </td>

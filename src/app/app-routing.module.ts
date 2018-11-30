@@ -18,7 +18,8 @@ const routes: Routes= [
   //whenever we want to allow the user to go to a new page, we need to include the route here.
   { path: 'contact', component: ContactComponent },
   { path: 'heroes', component: HeroesComponent},
-  { path: 'hero/:id', component: HeroDetailComponent }
+  { path: 'hero/:id', component: HeroDetailComponent },
+  { path: 'heroes/:power', component: HeroesComponent }
 ];
 
 @NgModule({

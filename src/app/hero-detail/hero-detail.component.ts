@@ -1,4 +1,6 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
+//ONLY use Router for redirect events.
+//ActivatedRoute allows us to get the URL, Router allows us to change the URL.
 import { Component, OnInit } from '@angular/core';
 
 import { HeroInterface } from '../interfaces/hero-interface';

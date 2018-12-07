@@ -1,5 +1,5 @@
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { HeroInterface } from '../interfaces/hero-interface';
 import { HeroService } from '../services/hero.service';
@@ -10,7 +10,7 @@ import { HeroService } from '../services/hero.service';
   templateUrl: './heroes.component.html',
   styleUrls: ['./heroes.component.css']
 })
-export class HeroesComponent implements OnInit {
+export class HeroesComponent implements OnInit, OnDestroy {
 
   heroes: HeroInterface[];
   filter: string;
@@ -65,5 +65,11 @@ export class HeroesComponent implements OnInit {
     this.getHeroes(this.filter);
     // console.log(this.heroes); //for testing.
   }
+
+  ngOnDestroy() {
+    this.getHeroes().unsubscribe();
+    //unsubscribe to whatever function has the subscription
+  }
+  //note// api application program interface.
 
 }

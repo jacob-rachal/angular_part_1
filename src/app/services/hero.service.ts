@@ -42,18 +42,28 @@ export class HeroService {
 
   //day 8
   getIndividualHero(params: object): HeroInterface {
+  //
     // return HEROES.find((hero) => {
     //     return hero.id === heroId;
     // });
     //return HEROES.find(hero => hero.id === +params['id']);// the + converts things to a number
+
     //day 9 modification below to make use of the heroNotFound method/function.
     // if(!HEROES.includes(id === +params['id']))
-    return HEROES.find(hero => hero.id === +params['id']);
+    //return HEROES.find(hero => hero.id === +params['id']);
     //handle at a later date, teacher forgot how to do the logic for this.
+
+    //day 10
+    const id: number = +params['id'];
+    const selectedHero: HeroInterface = HEROES.find(hero => hero.id === id );
+    if (!selectedHero) { this.heroNotFound(id); }
+    return selectedHero;
   };
 
+  //TOp TIP: whey 'typing' a function, type it based upon it's return value.
+
   //day 9
-  heroNotFound(noHero: string) {
+  heroNotFound(noHero: string | number) {
     return this.router.navigateByUrl(`/hero-not-found/${noHero}`);
   }
 

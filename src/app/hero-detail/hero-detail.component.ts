@@ -1,7 +1,7 @@
 import { ActivatedRoute} from '@angular/router';
 //ONLY use Router for redirect events.
 //ActivatedRoute allows us to get the URL, Router allows us to change the URL.
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { HeroInterface } from '../interfaces/hero-interface';
 import { HeroService } from '../services/hero.service';
@@ -11,7 +11,7 @@ import { HeroService } from '../services/hero.service';
   templateUrl: './hero-detail.component.html',
   styleUrls: ['./hero-detail.component.css']
 })
-export class HeroDetailComponent implements OnInit {
+export class HeroDetailComponent implements OnInit, OnDestroy {
 
   hero: HeroInterface;
   //a single instance of a hero.
@@ -33,6 +33,10 @@ export class HeroDetailComponent implements OnInit {
     // console.log(this.route);
     this.getHero();
     // console.log(this.hero);
+  }
+
+  ngOnDestroy() {
+    this.getHero().unsubscribe();
   }
 
 }

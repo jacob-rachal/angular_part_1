@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { AmiiboService } from '../services/amiibo.service';
 import{ AmiiboInterface } from '../interfaces/amiibo-interface';
-
+import { PaginationService } from '../services/pagination.service';
 
 @Component({
   selector: 'app-amiibos',
@@ -12,13 +12,28 @@ import{ AmiiboInterface } from '../interfaces/amiibo-interface';
 export class AmiibosComponent implements OnInit {
 
   amiibos: AmiiboInterface[];
+  paginator: any = {}; //an object
+  searchText: string;
+  pagedItems: AmiiboInterface[] = [];
 
-  constructor(private amiibo: AmiiboService) { }
+  constructor(private amiibo: AmiiboService, private paginationService: PaginationService) { }
 
   getAmiibos() {
     return this.amiibo.getAmiibos().subscribe( (res) => {
-      return this.amiibos = res.amiibo;
+      // return
+      this.amiibos = res.amiibo;
+      this.setPage(1);
     } );
+  }
+
+  setPage(page: number) {
+    const amiiboCount = this.amiibos.length;
+    this.paginator = this.paginationService.getPaginatior(amiiboCount, page, 12);
+    // (total # of items, page #, and total # of items to be rendered).
+    if (page < 1 || page > this.paginator.pagesCount) {return;}
+    const startIndex = this.paginator.startIndex;
+    const endIndex = this.paginator.endIndex + 1;
+    this.pagedItems = this.amiibos.slice(startIndex, endIndex);
   }
 
   ngOnInit() {

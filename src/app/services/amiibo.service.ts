@@ -12,4 +12,14 @@ export class AmiiboService {
   getAmiibos() {
     return this.api.get('/amiibo');//.subscribe((res) =>res.amiibo);
   }//<AmiiboInterface[]>
+
+  getAmiibo(id: string) {
+    return this.api.get(`/amiibo/?tail=${id}`);
+    // ? means 'query', allowing us tp put values in the URL.
+  }
+
+  getFilteredAmiibos(category: string, value: string) {
+    return this.api.get(`/amiibo/?${category}=${value}`);
+  }
+
 }

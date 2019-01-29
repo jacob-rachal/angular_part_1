@@ -27,7 +27,7 @@ const routes: Routes= [
   { path: 'hero-not-found/:no-hero', component: HeroNotFoundComponent },
   { path: 'amiibos', component: AmiibosComponent },
   { path: 'amiibo/:id', component: AmiiboDetailComponent }, //for viewing individual ones
-  { path: 'amiibos/category/:value', component: AmiibosComponent }, // for filtering (we'll do later)
+  { path: 'amiibos/:category/:value', component: AmiibosComponent }, // for filtering (we'll do later)(done)
   // a 404 not-found page always has to go at the very end of the ROUTES.
   { path: '**', component: NotFoundComponent }// '**' represents a 'wild card' Javascript, so everything will pass.
 ];

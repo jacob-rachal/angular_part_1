@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 import { AmiiboService } from '../services/amiibo.service';
@@ -15,15 +16,29 @@ export class AmiibosComponent implements OnInit {
   paginator: any = {}; //an object
   searchText: string;
   pagedItems: AmiiboInterface[] = [];
+  shouldShowPaginator = true;
 
-  constructor(private amiibo: AmiiboService, private paginationService: PaginationService) { }
+  constructor(private amiiboService: AmiiboService, private paginationService: PaginationService, private route: ActivatedRoute) { }
 
   getAmiibos() {
-    return this.amiibo.getAmiibos().subscribe( (res) => {
-      // return
-      this.amiibos = res.amiibo;
-      this.setPage(1);
-    } );
+    // return this.amiibo.getAmiibos().subscribe( (res) => {
+    //   // return
+    //   this.amiibos = res.amiibo;
+    //   this.setPage(1);
+    // } );
+    this.route.params.subscribe(params => {
+      if (params.category) {
+        this.amiiboService.getFilteredAmiibos(params.category, params.value).subscribe((amiibos) => {
+          this.amiibos = amiibos.amiibo;
+          this.setPage(1);
+        });
+      } else {
+        this.amiiboService.getAmiibos().subscribe((amiibos) => {
+          this.amiibos = amiibos.amiibo;
+          this.setPage(1);//this is where I would want to save the page we left off on from returning from a profile.
+        });
+      }
+    });
   }
 
   setPage(page: number) {
@@ -36,8 +51,14 @@ export class AmiibosComponent implements OnInit {
     this.pagedItems = this.amiibos.slice(startIndex, endIndex);
   }
 
+  setAmiibos(): AmiiboInterface[] {
+    //for fixing our search bar to look over all the amiibos rather than just the ones visible on the page
+    if (!this.searchText) { this.shouldShowPaginator = true; return this.pagedItems;}
+    this.shouldShowPaginator = false;
+    return this.amiibos;
+  }
+
   ngOnInit() {
     this.getAmiibos();
   }
-
 }

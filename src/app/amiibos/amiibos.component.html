@@ -10,7 +10,7 @@
     <h1 class="text-center">Amiibos</h1>
   </div>
   <div class="row">
-    <div class="col-md-3" *ngFor="let amiibo of pagedItems | search: searchText">
+    <div class="col-md-3" *ngFor="let amiibo of setAmiibos() | search: searchText">
         <div class="amiibo-body">
           <h3 class="text-center">{{ amiibo.name }}</h3>
           <hr>
@@ -20,7 +20,7 @@
           </div>
         </div>
     </div>
-    <ng-container>
+    <ng-container *ngIf="shouldShowPaginator">
       <!-- For the pagination -->
       <ul class="pagination" *ngIf="paginator.pages && paginator.pages.length">
         <!-- only render if we have pages and it has a length to it. -->
